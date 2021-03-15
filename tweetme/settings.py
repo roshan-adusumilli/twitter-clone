@@ -26,7 +26,8 @@ SECRET_KEY = 'g8%wi_+ql9=!e&m!^skg9f1*nmch5=2h2_z(r9m4*1*5j(@)!b'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
-
+LOGIN_URL = '/login'
+MAX_TWEET_LENGTH = 240 
 
 # Application definition
 
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
     'tweets',
 ]
 
@@ -119,3 +122,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+DEFAULT_RENDERER_CLASSES = [
+    'rest_framework.renderers.JSONRenderer',
+]
+
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES += [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework.authentication.SessionAuthentication'
+    ],
+    'DEFAULT_RENDERER_CLASSES' : DEFAULT_RENDERER_CLASSES,
+}
