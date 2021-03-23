@@ -9,9 +9,12 @@ const appEl = document.getElementById('root')
 if (appEl) {
     ReactDOM.render(<App />, appEl);
 }
+
+const e = React.createElement
+
 const tweetsEl = document.getElementById("tweetme")
 if (tweetsEl) {
-    ReactDOM.render(<TweetsComponent />, tweetsEl);
+    ReactDOM.render(e(TweetsComponent, tweetsEl.dataset), tweetsEl);
 }
 
 // If you want to start measuring performance in your app, pass a function
