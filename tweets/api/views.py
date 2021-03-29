@@ -86,21 +86,22 @@ def get_paginated_queryset_response(qs, request):
     paginator.page_size = 20
     paginated_qs = paginator.paginate_queryset(qs, request)
     serializer = TweetSerializer(paginated_qs, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    return paginator.get_paginated_response(serializer.data) 
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def tweet_feed_view(request, *args, **kwargs):
-    user = request.user 
+    user = request.user
     qs = Tweet.objects.feed(user)
     return get_paginated_queryset_response(qs, request)
 
 @api_view(['GET'])
 def tweet_list_view(request, *args, **kwargs):
     qs = Tweet.objects.all()
-    username = request.GET.get('username')
+    username = request.GET.get('username') 
     if username != None:
-        qs = qs.filter(user__username__iexact=username)
+         qs = qs.filter(user__username__iexact=username)
     return get_paginated_queryset_response(qs, request)
 
 def tweet_create_view_pure_django(request, *args, **kwargs):
